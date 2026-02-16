@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notas Familiares - Familia Pro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .note-card {
+            transition: all 0.3s ease;
+        }
+        
+        .note-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Header -->
+    <header class="gradient-bg text-white shadow-lg">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex items-center">
+                <a href="../index.html" class="text-white hover:text-blue-100 mr-4">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                    </svg>
+                </a>
+                <div>
+                    <h1 class="text-3xl font-bold">📝 Notas Familiares</h1>
+                    <p class="text-blue-100 text-sm mt-1">Comparte información importante con la familia</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8 max-w-6xl">
+        
+        <!-- Add Note Section -->
+        <section class="bg-white rounded-xl shadow-md p-6 mb-6">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">✍️ Nueva Nota</h2>
+            <form id="addNoteForm">
+                <div class="mb-4">
+                    <input
+                        type="text"
+                        id="noteTitle"
+                        placeholder="Título de la nota"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        required
+                    >
+                </div>
+                <div class="mb-4">
+                    <textarea
+                        id="noteContent"
+                        placeholder="Escribe tu nota aquí..."
+                        rows="4"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+                        required
+                    ></textarea>
+                </div>
+                <div class="flex flex-col md:flex-row gap-3 items-start md:items-center">
+                    <select
+                        id="noteCategory"
+                        class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    >
+                        <option value="general">📌 General</option>
+                        <option value="importante">⚠️ Importante</option>
+                        <option value="recordatorio">⏰ Recordatorio</option>
+                        <option value="compras">🛒 Compras</option>
+                        <option value="salud">🏥 Salud</option>
+                    </select>
+                    <button
+                        type="submit"
+                        class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg transition duration-200"
+                    >
+                        Guardar Nota
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <!-- Filter Section -->
+        <section class="mb-6">
+            <div class="flex flex-wrap gap-2">
+                <button class="filter-btn active px-4 py-2 rounded-lg bg-blue-600 text-white font-medium text-sm" data-filter="all">
+                    Todas
+                </button>
+                <button class="filter-btn px-4 py-2 rounded-lg bg-gray-200 text-gray-700 font-medium text-sm hover:bg-gray-300" data-filter="general">
+                    📌 General
+                </button>
+                <button class="filter-btn px-4 py-2 rounded-lg bg-gray-200 text-gray-700 font-medium text-sm hover:bg-gray-300" data-filter="importante">
+                    ⚠️ Importante
+                </button>
+                <button class="filter-btn px-4 py-2 rounded-lg bg-gray-200 text-gray-700 font-medium text-sm hover:bg-gray-300" data-filter="recordatorio">
+                    ⏰ Recordatorio
+                </button>
+                <button class="filter-btn px-4 py-2 rounded-lg bg-gray-200 text-gray-700 font-medium text-sm hover:bg-gray-300" data-filter="compras">
+                    🛒 Compras
+                </button>
+                <button class="filter-btn px-4 py-2 rounded-lg bg-gray-200 text-gray-700 font-medium text-sm hover:bg-gray-300" data-filter="salud">
+                    🏥 Salud
+                </button>
+            </div>
+        </section>
+
+        <!-- Notes Grid -->
+        <section>
+            <div id="emptyState" class="bg-white rounded-xl shadow-md p-12 text-center text-gray-400">
+                <svg class="w-24 h-24 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                </svg>
+                <p class="text-lg font-medium">No hay notas guardadas</p>
+                <p class="text-sm mt-1">Crea tu primera nota para comenzar</p>
+            </div>
+            
+            <div id="notesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <!-- Notes will be added here dynamically -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 mt-12">
+        <div class="container mx-auto px-4 py-6">
+            <div class="text-center text-gray-600 text-sm">
+                <p>© Vero 2025-2026 - <a href="https://si-cb-vendes-mejor.com.ar" target="_blank" class="text-blue-600 hover:text-blue-700 transition">https://si-cb-vendes-mejor.com.ar</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/notas.js"></script>
+</body>
+</html>

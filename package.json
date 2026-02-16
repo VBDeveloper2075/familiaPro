@@ -1,0 +1,29 @@
+{
+  "name": "familia-pro",
+  "version": "2.0.0",
+  "description": "Centro de organización familiar - Aplicación web para gestionar tareas, compras y notas del hogar",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve .",
+    "dev": "npx live-server --port=8080",
+    "test": "echo \"No tests configured yet\" && exit 0"
+  },
+  "keywords": [
+    "familia",
+    "organización",
+    "tareas",
+    "notas",
+    "compras",
+    "hogar"
+  ],
+  "author": "VBDeveloper2075",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/VBDeveloper2075/familiaPro.git"
+  },
+  "bugs": {
+    "url": "https://github.com/VBDeveloper2075/familiaPro/issues"
+  },
+  "homepage": "https://github.com/VBDeveloper2075/familiaPro#readme"
+}
